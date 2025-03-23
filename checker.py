@@ -14,12 +14,7 @@ def get_current_films():
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # DEBUG: Print the first 500 characters of the page
-    print("---- PAGE SNAPSHOT ----")
-    print(soup.prettify()[:500])
-    print("------------------------")
-
-    titles = [h3.get_text(strip=True) for h3 in soup.select("h3.title")]
+    titles = [a.get_text(strip=True) for a in soup.select("a.liveeventtitle")]
     return titles
 
 if __name__ == "__main__":
