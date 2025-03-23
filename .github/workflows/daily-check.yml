@@ -24,6 +24,10 @@ jobs:
       - name: Run script
         run: python checker.py
 
+      - name: Authenticate with GitHub
+        run: |
+          git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf https://github.com/
+
       - name: Commit updated film log
         run: |
           git config user.name "cinema-bot"
@@ -31,4 +35,6 @@ jobs:
           git add film_log.json
           git diff --cached --quiet || git commit -m "Update film log"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
